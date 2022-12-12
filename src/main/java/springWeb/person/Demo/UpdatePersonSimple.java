@@ -1,27 +1,24 @@
 package springWeb.person.Demo;
 
-import org.springframework.http.RequestEntity;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import springWeb.person.models.Person;
 
 import java.net.URI;
 
-public class AddPersonSimple {
+public class UpdatePersonSimple {
     public static void main(String[] args) {
 
         RestTemplate rt = new RestTemplate();
         URI uri = URI.create("http://localhost:8080/api");
+        Person updatedPerson  = new Person(2,"updatedPerson",300);
 
-        Person person = new Person(11,"new person",44);
         try {
-
-            // TODO: 12/12/2022 adding null person
-            Person addedPerson = rt.postForObject(uri,person, Person.class);
-            System.out.println("added person:" + addedPerson);
-
+            rt.put(uri,updatedPerson);
+            System.out.println("updated");
         } catch (RestClientException e) {
             System.out.println(e.getMessage());
         }
     }
+
 }
